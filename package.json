@@ -1,0 +1,28 @@
+{
+  "name": "almundo-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/jesusda91/almundo-backend.git"
+  },
+  "author": "Jesus Martinez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jesusda91/almundo-backend/issues"
+  },
+  "homepage": "https://github.com/jesusda91/almundo-backend#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "mongoose": "^5.0.16"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.3"
+  }
+}
