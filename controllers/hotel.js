@@ -17,41 +17,26 @@ function getHotel(req, res) {
 
 function getHotels(req, res) {
     const { name, stars } = req.query;
-    let filter;
-    if (name) filter = { name };
-    if (stars) filter = { stars }
-    if (filter) { console.log("name")
-        Hotel.find( filter , (err, hotels) => {
-            if (err) {
-                return res.status(500).send({ message: 'Error getting hotels' });
-            }
-            if (!hotels) {
-                return res.status(404).send({ message: 'Hotel not found' });
-            }
-            res.status(200).send({ hotels });
-        });
-    } else {
-        Hotel.find({}, (err, hotels) => {
-            if (err) {
-                return res.status(500).send({ message: 'Error getting hotels' });
-            }
-            if (!hotels) {
-                return res.status(404).send({ message: 'Hotels not found' });
-            }
-            res.status(200).send({ hotels });
-        });
-    }
+    let filter = name ? { name } : stars ? { stars } : {};
+    Hotel.find( filter , (err, hotels) => {
+        if (err) {
+            return res.status(500).send({ message: 'Error getting hotels' });
+        }
+        if (!hotels) {
+            return res.status(404).send({ message: 'Hotel not found' });
+        }
+        res.status(200).send({ hotels });
+    });
 }
 
 function createHotel(req, res) {
-    console.log("POST /api/hotels", req.body);
-    console.log(" hotel.amenities", req.body.amenities);
     const hotel = new Hotel();
-    hotel.name = req.body.name;
-    hotel.stars = req.body.stars;
-    hotel.price = req.body.price;
-    hotel.image = req.body.image;
-    hotel.amenities = req.body.amenities;
+    const { name, stars, price, image, amenities } = req.body;
+    hotel.name = name;
+    hotel.stars = stars;
+    hotel.price = price;
+    hotel.image = image;
+    hotel.amenities = amenities;
     hotel.save((err, hotel) => {
         if (err) {
             return res.status(500).send({ message: 'Error creating hotel' });
@@ -86,7 +71,6 @@ function deleteHotel(req, res) {
 }
 
 function findHotelByName(req, res) {
-
     const name = req.params.hotelId;
     Hotel.find({ name: new RegExp(name, 'i') }, cb);
     Hotel.findByIdAndRemove(hotelId, (err, hotel) => {
