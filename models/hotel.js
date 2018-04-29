@@ -20,7 +20,20 @@ const HotelSchema = Schema({
         type: String, 
         trim: true, lowercase: true 
     },
-    amenities: [String]
+    amenities: [String],
+    __v: { type: Number, select: false}
 })
+
+// Duplicate the ID field.
+HotelSchema.virtual('id').get(function(){
+    return this._id.toHexString();
+});
+
+// Ensure virtual fields are serialised.
+HotelSchema.set('toJSON', {
+    virtuals: true,
+    versionKey:false,
+    transform: function (doc, ret) {   delete ret._id  }
+});
 
 module.exports =  mongoose.model('Hotel', HotelSchema);

@@ -25,6 +25,13 @@ function getHotels(req, res) {
         if (!hotels) {
             return res.status(404).send({ message: 'Hotel not found' });
         }
+        console.log('hotels', hotels);
+        hotels = hotels.map(hotel=>{ console.log("hotel",hotel);
+        
+            delete hotel["__v"]; console.log("hotel2",hotel,hotel.__v);
+            
+            return hotel;
+        })
         res.status(200).send( hotels );
     });
 }
