@@ -11,7 +11,7 @@ function getHotel(req, res) {
         if (!hotel) {
             return res.status(404).send({ message: 'Hotel not found' });
         }
-        res.status(200).send({ hotel });
+        res.status(200).send( hotel );
     });
 }
 
@@ -25,7 +25,7 @@ function getHotels(req, res) {
         if (!hotels) {
             return res.status(404).send({ message: 'Hotel not found' });
         }
-        res.status(200).send({ hotels });
+        res.status(200).send( hotels );
     });
 }
 
@@ -41,7 +41,7 @@ function createHotel(req, res) {
         if (err) {
             return res.status(500).send({ message: 'Error creating hotel' });
         }
-        res.status(200).send({ hotel });
+        res.status(200).send( hotel );
     });
 }
 
@@ -52,27 +52,12 @@ function updateHotel(req, res) {
         if (err) { 
             return res.status(500).send({ message: 'Error updating hotel' });
         }
-        res.status(200).send({ hotel });
+        res.status(200).send( hotel );
     });
 }
 
 function deleteHotel(req, res) {
     const hotelId = req.params.hotelId;
-    Hotel.findByIdAndRemove(hotelId, (err, hotel) => {
-        if (err) {
-            return res.status(500).send({ message: `Error deleting hotel, ${err}` });
-        }
-        const response = {
-            message: "Hotel successfully deleted",
-            id: hotel._id
-        };
-        return res.status(200).send(response);
-    });
-}
-
-function findHotelByName(req, res) {
-    const name = req.params.hotelId;
-    Hotel.find({ name: new RegExp(name, 'i') }, cb);
     Hotel.findByIdAndRemove(hotelId, (err, hotel) => {
         if (err) {
             return res.status(500).send({ message: `Error deleting hotel, ${err}` });
